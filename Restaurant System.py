@@ -105,25 +105,25 @@ def total_cost():
 
         # ===================== Buttons ==================================
 
-        priceofFood = ((fufu * 15) + (frice * 20) + (waakye * 15) + (jollof * 20) + (konkonte * 10) + (banku * 10) + (
+        priceofFood = float((fufu * 15) + (frice * 20) + (waakye * 15) + (jollof * 20) + (konkonte * 10) + (banku * 10) + (
                     gob3 * 15) + (kelewele * 10) + (kenkey * 10) + (yaw * 10) + (riceball * 10))
 
-        priceofDrinks = ((cock * 25) + (coke * 20) + (pepsi * 10) + (orange * 20) + (don * 30) + (pineaple * 25) + (
+        priceofDrinks = float((cock * 25) + (coke * 20) + (pepsi * 10) + (orange * 20) + (don * 30) + (pineaple * 25) + (
                     beet * 35) + (tampico * 10) + (redwine * 50) + (apple * 25) + (lemon * 20))
 
-        priceofCakes = ((cheese * 30) + (ice * 50) + (pizzza * 40) + (choco * 25) + (vanilla * 35) + (sponge * 45) + (
+        priceofCakes = float((cheese * 30) + (ice * 50) + (pizzza * 40) + (choco * 25) + (vanilla * 35) + (sponge * 45) + (
                     banana * 30) + (red * 35) + (oreo * 30) + (blue * 40) + (black * 45))
-        sum = priceofCakes + priceofDrinks + priceofFood
+        sum = float(priceofCakes + priceofDrinks + priceofFood)
 
         if priceofCakes == 0 and priceofFood == 0 and priceofDrinks == 0:
             messagebox.showerror("Order", 'Please make an order !!!')
         else:
             elavy = (sum * 0.01).__round__(2)
             Total = sum - elavy
-            foodcost.set('Ghc ' + str(priceofFood))
-            drinkcost.set('Ghc ' + str(priceofDrinks))
-            cakescost.set('Ghc ' + str(priceofCakes))
-            subtotal.set('Ghc ' + str(sum))
+            foodcost.set('Ghc ' + str(priceofFood)+'0')
+            drinkcost.set('Ghc ' + str(priceofDrinks)+'0')
+            cakescost.set('Ghc ' + str(priceofCakes)+'0')
+            subtotal.set('Ghc ' + str(sum)+'0')
             tax.set('Ghc ' + str(elavy))
             total.set('Ghc ' + str(Total))
     except Exception as es:
@@ -208,7 +208,7 @@ def Receipt():
         txtReceipt.insert(END, f'Black Forest\t\t\t{int(txtblack.get()) * 45}\n')
 
     txtReceipt.insert(END, '*********************************************\n')
-    '''if foodcost.get() != '0':
+    if foodcost.get() != '0':
         txtReceipt.insert(END, f'Cost of Food\t\t\tGhc {priceofFood}\n')
     if drinkcost.get() != '0':
         txtReceipt.insert(END, f'Cost of Drinks\t\t\tGhc {priceofDrinks}\n')
@@ -216,7 +216,7 @@ def Receipt():
         txtReceipt.insert(END, f'Cost of Cakes\t\t\tGhc {priceofCakes}\n')
     txtReceipt.insert(END, f'Sub Total\t\t\tGhc {sum}\n')
     txtReceipt.insert(END, f'Discount\t\t\tGhc {elavy}\n')
-    txtReceipt.insert(END, f'Total\t\t\tGhc {Total}\n')'''
+    txtReceipt.insert(END, f'Total\t\t\tGhc {Total}\n')
     txtReceipt.insert(END, '*********************************************\n')
 
     txtReceipt.config(state='disabled')
