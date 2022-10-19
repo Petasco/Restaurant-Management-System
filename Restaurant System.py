@@ -21,11 +21,17 @@ Title_lbl.grid(row=0, column=0)
 menuFrame = Frame(petasco, bd=5, relief=RIDGE)
 menuFrame.pack(side=LEFT)
 
-costFrame = Frame(menuFrame, bd=4, relief=RIDGE, pady=15)
-costFrame.pack(side=BOTTOM)
+cost_ServiceFrame = Frame(menuFrame, bd=0, relief=RIDGE)
+cost_ServiceFrame.pack(side=BOTTOM)
+ordersFrame = LabelFrame(cost_ServiceFrame, bd=3, text='Orders',font=('times',16,'bold italic'),relief=RIDGE,pady=5)
+ordersFrame.pack(side=LEFT)
+costFrame = Frame(cost_ServiceFrame, bd=4, relief=RIDGE,pady=2)
+costFrame.pack(side=LEFT)
+servicesFrame = LabelFrame(cost_ServiceFrame, bd=3, text='Services',font=('times',16,'bold italic'),relief=RIDGE,pady=10)
+servicesFrame.pack(side=LEFT)
 
-totalbtnFrame = Frame(menuFrame, bd=0, relief=RAISED)
-totalbtnFrame.pack(side=BOTTOM)
+totalbtnFrame = Frame(cost_ServiceFrame, bd=0, relief=RAISED)
+totalbtnFrame.pack(side=TOP)
 
 foodFrame = LabelFrame(menuFrame, text='Food', font=('times', 20, "bold italic"), bd=10, relief=RIDGE)
 foodFrame.pack(side=LEFT)
@@ -132,6 +138,8 @@ def total_cost():
         messagebox.showwarning("Error", f'Error due to {str(es)}!\nPlease Enter Only Integers!!!')
 
 def Receipt():
+    if totalEntry.get() == '0':
+        messagebox.showerror('No Order', 'Please make an order to get a receipt!\n Thank You !!!')
     try:
         txtReceipt.delete(1.0, END)
         x = random.randint(1000, 100000)
@@ -140,7 +148,8 @@ def Receipt():
         txtReceipt.insert(END, 'Receipt Ref : \t\t' + billnumber + '\t\t' + date + '\n')
         txtReceipt.insert(END, '*********************************************\n')
         txtReceipt.insert(END, 'Items:\t\tCost (Ghc)\n')
-        txtReceipt.insert(END, '-------------------------------- Food -------------------------------\n')
+        if foodcost.get() >= '1':
+            txtReceipt.insert(END, '-------------------------------- Food -------------------------------\n')
         if txtfufu.get() != '0':
             txtReceipt.insert(END, f'Fufu\t\t\t{int(txtfufu.get()) * 15}\n')
         if txtfrice.get() != '0':
@@ -163,7 +172,9 @@ def Receipt():
             txtReceipt.insert(END, f'Fried Yaw\t\t\t{int(txtyaw.get()) * 10}\n')
         if txtriceball.get() != '0':
             txtReceipt.insert(END, f'Rice Ball\t\t\t{int(txtriceball.get()) * 10}\n')
-        txtReceipt.insert(END, '--------------------------------- Drinks ----------------------------\n')
+
+        if drinkcost.get() >= '1':
+            txtReceipt.insert(END, '--------------------------------- Drinks ----------------------------\n')
         if txtcock.get() != '0':
             txtReceipt.insert(END, f'Cocktail\t\t\t{int(txtcock.get()) * 25}\n')
         if txtcoke.get() != '0':
@@ -186,7 +197,9 @@ def Receipt():
             txtReceipt.insert(END, f'Lemon Juice\t\t\t{int(txtlemon.get()) * 20}\n')
         if txtapple.get() != '0':
             txtReceipt.insert(END, f'Apple Juice\t\t\t{int(txtapple.get()) * 25}\n')
-        txtReceipt.insert(END, '---------------------------------- Cakes ---------------------------\n')
+
+        if cakescost.get() >= '1':
+            txtReceipt.insert(END, '---------------------------------- Cakes ---------------------------\n')
         if txtcheese.get() != '0':
             txtReceipt.insert(END, f'Cheese\t\t\t{int(txtcheese.get()) * 30}\n')
         if txtice.get() != '0':
@@ -209,6 +222,7 @@ def Receipt():
             txtReceipt.insert(END, f'Blueberry\t\t\t{int(txtblue.get()) * 40}\n')
         if txtblack.get() != '0':
             txtReceipt.insert(END, f'Black Forest\t\t\t{int(txtblack.get()) * 45}\n')
+
 
         txtReceipt.insert(END, '*********************************************\n')
         if foodcost.get() != '0':
@@ -865,38 +879,38 @@ tax = StringVar()
 total = StringVar()
 
 foodcostlbl = Label(costFrame, text='Cost of Food', font=('arial', 16, 'bold'), fg='blue')
-foodcostlbl.grid(row=0, column=0, sticky=W)
+foodcostlbl.grid(row=1, column=0, sticky=W)
 foodcostEntry = Entry(costFrame, font=('arial', 15, 'bold'), bd=5, width=15, state='readonly', textvariable=foodcost)
-foodcostEntry.grid(row=0, column=1)
+foodcostEntry.grid(row=1, column=1)
 
 drinkscostlbl = Label(costFrame, text='Cost of Drinks', font=('arial', 16, 'bold'), fg='blue')
-drinkscostlbl.grid(row=1, column=0, sticky=W)
+drinkscostlbl.grid(row=2, column=0, sticky=W)
 drinkscostEntry = Entry(costFrame, font=('arial', 15, 'bold'), bd=5, width=15, state='readonly', textvariable=drinkcost)
-drinkscostEntry.grid(row=1, column=1)
+drinkscostEntry.grid(row=2, column=1)
 
 cakescostlbl = Label(costFrame, text='Cost of Cakes', font=('arial', 16, 'bold'), fg='blue')
-cakescostlbl.grid(row=2, column=0, sticky=W)
+cakescostlbl.grid(row=3, column=0, sticky=W)
 cakescostEntry = Entry(costFrame, font=('arial', 15, 'bold'), bd=5, width=15, state='readonly', textvariable=cakescost)
-cakescostEntry.grid(row=2, column=1)
+cakescostEntry.grid(row=3, column=1)
 
 subtotallbl = Label(costFrame, text='Sub Total', font=('arial', 16, 'bold'), fg='blue')
-subtotallbl.grid(row=0, column=3, sticky=W)
+subtotallbl.grid(row=1, column=3, sticky=W)
 subtotalEntry = Entry(costFrame, font=('arial', 15, 'bold'), bd=5, width=15, state='readonly', textvariable=subtotal)
-subtotalEntry.grid(row=0, column=4)
+subtotalEntry.grid(row=1, column=4)
 
 taxlbl = Label(costFrame, text='Services Tax', font=('arial', 16, 'bold'), fg='blue')
-taxlbl.grid(row=1, column=3, sticky=W)
+taxlbl.grid(row=2, column=3, sticky=W)
 taxEntry = Entry(costFrame, font=('arial', 15, 'bold'), bd=5, width=15, state='readonly', textvariable=tax)
-taxEntry.grid(row=1, column=4)
+taxEntry.grid(row=2, column=4)
 
 totallbl = Label(costFrame, text='Total', font=('arial', 16, 'bold'), fg='blue')
-totallbl.grid(row=2, column=3, sticky=W)
+totallbl.grid(row=3, column=3, sticky=W)
 totalEntry = Entry(costFrame, font=('arial', 15, 'bold'), bd=5, width=15, state='readonly', textvariable=total)
-totalEntry.grid(row=2, column=4)
+totalEntry.grid(row=3, column=4)
 
 # ====================================== Buttons =======================================================================
-btnTotal = Button(totalbtnFrame, text='Total', font=('arial', 14, 'bold'), bd=2, width=10, command=total_cost)
-btnTotal.grid(row=0, column=0)
+btnTotal = Button(costFrame, text='Total', font=('arial', 14, 'bold'), bd=2, width=10, command=total_cost)
+btnTotal.grid(row=0, column=0,columnspan=5,pady=10)
 
 btnSave = Button(BtnFrame, text='Save', font=('arial', 14, 'bold'), bd=3, width=7, command=save)
 btnSave.grid(row=0, column=2)
@@ -912,6 +926,21 @@ btnReset.grid(row=0, column=4)
 txtReceipt = Text(receiptFrame, font=('times', 12, 'bold'), bd=3, width=45, height=14)
 txtReceipt.grid(row=0, column=0)
 
+# ====================================================== Services ======================================================
+Checkbutton(servicesFrame,text='Event Management', font=('tahoma',8,'bold'),bd=1,onvalue=1,offvalue=0).grid(row=0,column=0,sticky=W)
+Checkbutton(servicesFrame, text='Hampers', font=('tahoma',8,'bold'),bd=1,onvalue=1,offvalue=0).grid(row=1,column=0,sticky=W)
+Checkbutton(servicesFrame,text='Training in:\nCakes Descoration &\nPractical Cookery', font=('tahoma',8,'bold'),bd=1,onvalue=1,offvalue=0).grid(row=2,column=0,sticky=W)
+
+petascolbl = Label(servicesFrame,text='By Petasco 0547736844',font=('algeria',9,'bold italic'),fg='blue')
+petascolbl.grid(row=6,column=0,sticky=W,pady=12)
+# ======================================================= Orders =======================================================
+Checkbutton(ordersFrame,text='Local Dishes', font=('tahoma',8,'bold'),bd=1,onvalue=1,offvalue=0).grid(row=0,column=0,sticky=W)
+Checkbutton(ordersFrame, text='Continetal Dishes', font=('tahoma',8,'bold'),bd=1,onvalue=1,offvalue=0).grid(row=1,column=0,sticky=W)
+Checkbutton(ordersFrame,text='Lunch', font=('tahoma',8,'bold'),bd=1,onvalue=1,offvalue=0).grid(row=2,column=0,sticky=W)
+Checkbutton(ordersFrame, text='Dinner', font=('tahoma',8,'bold'),bd=1,onvalue=1,offvalue=0).grid(row=3,column=0,sticky=W)
+Checkbutton(ordersFrame,text='Wedding', font=('tahoma',8,'bold'),bd=1,onvalue=1,offvalue=0).grid(row=4,column=0,sticky=W)
+Checkbutton(ordersFrame, text='Funneral', font=('tahoma',8,'bold'),bd=1,onvalue=1,offvalue=0).grid(row=5,column=0,sticky=W)
+Checkbutton(ordersFrame,text='Office Delivery', font=('tahoma',8,'bold'),bd=1,onvalue=1,offvalue=0).grid(row=6,column=0,sticky=W)
 
 # ==================================================== Calculator ======================================================
 operator = ''
