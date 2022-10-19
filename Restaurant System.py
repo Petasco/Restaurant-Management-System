@@ -138,7 +138,8 @@ def total_cost():
         messagebox.showwarning("Error", f'Error due to {str(es)}!\nPlease Enter Only Integers!!!')
 
 def Receipt():
-    if totalEntry.get() == '0':
+    global total,foodcost,drinkcost,cakescost
+    if total.get() == 0:
         messagebox.showerror('No Order', 'Please make an order to get a receipt!\n Thank You !!!')
     try:
         txtReceipt.delete(1.0, END)
