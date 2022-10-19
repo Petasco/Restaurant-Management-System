@@ -905,7 +905,7 @@ btnReset = Button(BtnFrame, text='Reset', font=('arial', 14, 'bold'), bd=3, widt
 btnReset.grid(row=0, column=4)
 
 # ======================================Text Area ======================================================================
-txtReceipt = Text(receiptFrame, font=('times', 12, 'bold'), bd=3, width=45, height=14, state='disabled')
+txtReceipt = Text(receiptFrame, font=('times', 12, 'bold'), bd=3, width=45, height=14)
 txtReceipt.grid(row=0, column=0)
 
 # ==================================================== Calculator ======================================================
